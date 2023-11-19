@@ -42,4 +42,6 @@ void invert();
 //void set_column();
 //void matrix_convert();
 
+void will();
+
 #endif
