@@ -2,3 +2,4 @@
 back.o
 *.o
 *.exe
+*.json
