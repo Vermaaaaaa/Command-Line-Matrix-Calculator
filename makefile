@@ -1,21 +1,24 @@
-# Compiler and flags
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -Werror
 
-# Target and its dependencies
-all: unit2
+all: whole
 
-# Linking rule
-unit2: test2.o matrix.o
+whole: front.o matrix.o back.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-# Compilation rules
-main.o: test2.cpp matrix.h
+front.o: front.cpp back.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 matrix.o: matrix.cpp matrix.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Clean rule
+back.o: back.cpp matrix.h back.h
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
 clean:
-	rm -f *.o unit2
+	rm -f *.o whole
+
+# Header dependencies
+front.o: back.h
+matrix.o: matrix.h
+back.o: matrix.h back.h

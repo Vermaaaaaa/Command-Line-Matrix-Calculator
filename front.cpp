@@ -2,13 +2,16 @@
 #include <iostream>
 #include <stdexcept>
 #include "back.h"
+#include "matrix.h"
+#include <unordered_map>
+#include <memory>
 
 
 void main_menu();
 int get_user_input();
-void select_menu_item(int input);
+void select_menu_item(int input, std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
 void print_main_menu();
-void go_back_to_main_menu();
+void go_back_to_main();
 
 
 
@@ -16,14 +19,17 @@ int main(int argc, char const *argv[]) {
   (void) argc;
   (void) argv;
 
+
   main_menu();
+
   return 0;
 }
 
 void main_menu() {
+  std::shared_ptr<std::unordered_map<std::string, Matrix>> map = std::make_shared<std::unordered_map<std::string, Matrix>>();
   print_main_menu();
   int input = get_user_input();
-  select_menu_item(input);
+  select_menu_item(input, map);
 }
 
 int get_user_input() {
@@ -31,6 +37,7 @@ int get_user_input() {
   std::string input_string;
   bool valid_input = false;
   int menu_items = 5;
+
 
   do {
     std::cout << "\nSelect item: ";
@@ -53,22 +60,26 @@ int get_user_input() {
   return input;
 }
 
-void select_menu_item(int input) {
+void select_menu_item(int input,std::shared_ptr<std::unordered_map<std::string, Matrix>> &map) {
   switch (input) {
     case 1:
-      addition();
+      define_matrix_mo(map);
       go_back_to_main();
       break;
     case 2:
-      subtraction();
+      //add();
       go_back_to_main();
       break;
     case 3:
-      division();
+      //subtract();
       go_back_to_main();
       break;
     case 4:
-      multiplication();
+      invert();
+      go_back_to_main();
+      break;
+    case 5:
+      determinant();
       go_back_to_main();
       break;
     default:
@@ -80,7 +91,7 @@ void select_menu_item(int input) {
 void print_main_menu() {
   std::cout << "\n----------- Main menu -----------\n";
   std::cout << "|\t\t\t\t\t\t|\n";
-  std::cout << "|\t1. Addition\t\t|\n";
+  std::cout << "|\t1. Define Matrix\t\t|\n";
   std::cout << "|\t2. Subtraction\t\t|\n";
   std::cout << "|\t3. Division\t\t|\n";
   std::cout << "|\t4. Multiplication\t\t|\n";

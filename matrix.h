@@ -13,6 +13,8 @@ class Matrix{
     //Mutators
     int set_index(int row, int col, double value);
     void set_matrix();
+    int set_row(int row_no, double value);
+
 
     //Accessors 
     double get_index(int row, int col) const;
