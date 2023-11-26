@@ -5,7 +5,7 @@
 #include "matrix.h"
 #include <memory>
 
-#define MAX_LENGTH 200
+#define BUFF 200
 
 /*
 Matches an incominng string where: 
@@ -24,29 +24,30 @@ bool is_integer(const std::string &num) {
 
 
 
-bool parse_numbers(const std::string &input, std::unique_ptr<double[]>& numbers, int rows, int cols, int &last_index) {
-    std::unique_ptr<double[]> temp_nums = std::make_unique<double[]>(rows*cols);
-    std::istringstream iss(input);
-    std::string token;
-    int counter = 0;
-    bool double_f = false;
+bool parse_numbers(const std::string &input, std::unique_ptr<double[]>& numbers, int rows, int cols, int &last_index, int &i) {
+  std::unique_ptr<double[]> temp_nums = std::make_unique<double[]>(rows*cols + BUFF);
+  std::istringstream iss(input);
+  std::string token;
+  int counter = 0;
+  bool double_f = false;
 
-    while (iss >> token && counter < rows*cols && !double_f) {
-        if (is_double(token)) {
-          temp_nums[counter] = std::stod(token);
-          counter++;
-        } 
-        else {err("Invalid number"); double_f = true;}
-    }
 
-    if(!double_f){
-      for(int i = 0; i < rows*cols; i++){numbers[last_index + i] = temp_nums[i];}
-      last_index += counter; 
-      return true;
+  while (iss >> token && counter < rows*cols + BUFF) {
+    if (is_double(token)) {
+      temp_nums[counter] = std::stod(token);
+      counter++;
+    } 
+    else {err("Invalid number"); double_f = true;}
     }
+  if(counter != cols){err("Invalid number of inputs\n"); i = -1; return false;}
+
+  if(!double_f){
+    for(int i = 0; i < rows*cols; i++){numbers[last_index + i] = temp_nums[i];}
+    last_index += cols; 
+    return true;
+  }
       
-    return false;
-
+  return false;
 }
 
 
@@ -56,11 +57,11 @@ Matrix def_mat(int rows, int cols){
   int last_index = 0;
   bool parse_flag = false;
   do{
-    for(int i = 0; i < rows; i++){
+    for(int iter = 0; iter < rows; iter++){
       std::string row;
-      std::cout << "\nEnter row " << i + 1 << " values\n";
+      std::cout << "\nEnter row " << iter + 1 << " values\n";
       std::getline(std::cin, row);
-      parse_flag = parse_numbers(row, numbers, rows, cols, last_index);
+      parse_flag = parse_numbers(row, numbers, rows, cols, last_index, iter);
     }
   }
   while(!parse_flag);
@@ -73,107 +74,58 @@ Matrix def_mat(int rows, int cols){
 
   mat.display();
 
-
-  
   return mat;
 }
 
+void tokenize(std::string &msg){
+  std::istringstream iss(msg);
+  while(iss >> msg);
+}
+
+bool map_check(const std::string &msg, std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
+  auto it = map->find(msg);
+  return it != map->end(); // If key exists return true
+}
 
 
 
 
 void define_matrix_mo(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map) {
+  if(!map){err("MAP is NULL"); return;}
   int row, col;
   std::string row_string , col_string;
   bool valid_row = false;
   bool valid_col = false;
-  std::cout << "Enter the matrix name (This is case and whitespace dependent)\n";
+  bool flag = false;
   std::string mat_name;
-  std::getline(std::cin, mat_name);
-
-
+  do{
+    std::cout << "\nEnter a Matrix name (This will include all characters entered including white spaces)\n";
+    std::cin.ignore();
+    std::getline(std::cin, mat_name);
+    flag = map_check(mat_name, map);
+  }
+  while(flag);  
 
   do {
     std::cout << "\nEnter number of rows: ";
     std::getline(std::cin, row_string);
+    tokenize(row_string);
     std::cout << "\nEnter number of cols: ";
     std::getline(std::cin, col_string);
+    tokenize(col_string);
     valid_row = is_integer(row_string);
     valid_col = is_integer(col_string);
     // if input is not an integer, print an error message
-    if (!valid_col || !valid_row) {
-      err("Enter an integer for the rows and columns");
-    } else {  // if it is an int, check whether in range
+    if (!valid_col || !valid_row) {err("Enter an integer for the rows and columns");} 
+    else {  // if it is an int, check whether in range
       row = std::stoi(row_string);  // convert to int
       col = std::stoi(col_string);
-
     }
   } while (!valid_row || !valid_col);
 
-
-  Matrix mat = def_mat(row,col);
+  Matrix mat = def_mat(row, col);
 
   (*map)[mat_name] = mat;
-  
-
-}
-
-
-void subtraction() {
-  log("Subtraction Selected");
-  std::cout << "\nEnter 2 values\n";
-  std::string val_1;
-  std::string val_2;
-  do{
-    std::cin >> val_1;
-    std::cin >> val_2;
-    if(!is_double(val_1) || !is_double(val_2)){err("Invalid Data, try again");}
-  }
-  while(!is_double(val_1) || !is_double(val_2));
-
-  float tval_1 = std::stod(val_1);
-  float tval_2 = std::stod(val_2);
-
-  std::cout << "Output: " << tval_1 - tval_2 << std::endl;
-  
-}
-
-
-void division() {
-  log("Division Selected");
-  std::cout << "\nEnter 2 values\n";
-  std::string val_1;
-  std::string val_2;
-  do{
-    std::cin >> val_1;
-    std::cin >> val_2;
-    if(!is_double(val_1) || !is_double(val_2)){err("Invalid Data, try again");}
-  }
-  while(!is_double(val_1) || !is_double(val_2));
-
-  //float tval_1 = to_double(val_1);
-  //float tval_2 = to_double(val_2);
-
-  //std::cout << "Output: " << tval_1 / tval_2 << std::endl;
-}
-
-
-void multiplication() {
-  log("Multiplication Selected");
-  std::cout << "\nEnter 2 values\n";
-  std::string val_1;
-  std::string val_2;
-  do{
-    std::cin >> val_1;
-    std::cin >> val_2;
-    if(!is_double(val_1) || !is_double(val_2)){err("Invalid Data, try again");}
-  }
-  while(!is_double(val_1) || !is_double(val_2));
-
-  //float tval_1 = to_double(val_1);
-  //float tval_2 = to_double(val_2);
-
-  //std::cout << "Output: " << tval_1 * tval_2 << std::endl;
 }
 
 

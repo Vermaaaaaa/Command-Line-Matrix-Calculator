@@ -3,11 +3,18 @@
 #include <iostream>
 #include <limits.h>
 #include <iomanip>
+#include <string>
+#include <memory>
+#include "back.h"
 
 Matrix::Matrix(int rows, int cols): _rows(rows) ,_cols(cols) {
     if(rows > INT_MAX || cols > INT_MAX){std::cerr << "Error\n";}
     mat.resize(rows, std::vector<double>(cols, 0.0));
 
+}
+
+Matrix::Matrix(){
+    mat.resize(0, std::vector<double>(0, 0.0));
 }
 
 int Matrix::set_index(int row, int col, double value){
@@ -50,9 +57,33 @@ void Matrix::display() const{
         }
 }
 
+void matrix_save(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, const Matrix &mat){
+    bool flag = false;
+    std::string mat_name;
+    do{
+    std::cout << "\nEnter a Matrix name (This will include all characters entered including white spaces)\n";
+    std::cin.ignore();
+    std::getline(std::cin, mat_name);
+    flag = map_check(mat_name, map);
+  }
+  while(flag);
 
-void add(const Matrix &mat1, const Matrix &mat2){
-    if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){std::cerr << "Error" << std::endl;}
+  (*map)[mat_name] = mat;  
+
+}
+
+
+void add(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
+    Matrix mat1, mat2;
+    bool found_flag1 = false;
+    bool found_flag2 = false;
+    do{
+        mat1 = select(map, found_flag1);
+        mat2 = select(map, found_flag2);
+    }
+    while(!found_flag1 || !found_flag2);
+    
+    if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){std::cerr << "Error Matrices are not same size" << std::endl; return;}
     Matrix add_mat(mat1.get_row(), mat1.get_col());
 
     for(int i = 0; i < mat1.get_row(); i++){
@@ -64,12 +95,32 @@ void add(const Matrix &mat1, const Matrix &mat2){
 
     add_mat.display();
 
+    bool save_flag = false;
+    do{
+        std::string choice;
+        std::cout << "\nWould you like to save this matrix (Y/N)";
+        std::cin >> choice;
+        if(choice == "N"){save_flag = true;}
+        if(choice == "Y"){matrix_save(map, add_mat); save_flag = true;}
+    }
+    while(!save_flag);
+
+
 }
  
 
 
-void subtract(const Matrix &mat1, const Matrix &mat2){
-    if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){std::cerr << "Error" << std::endl;}
+void subtract(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
+     Matrix mat1, mat2;
+    bool found_flag1 = false;
+    bool found_flag2 = false;
+    do{
+        mat1 = select(map, found_flag1);
+        mat2 = select(map, found_flag2);
+    }
+    while(!found_flag1 || !found_flag2);
+
+    if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){std::cerr << "Error Matrices are not the same size" << std::endl; return;}
     Matrix sub_mat(mat1.get_row(), mat1.get_col());
 
     for(int i = 0; i < mat1.get_row(); i++){
@@ -80,4 +131,34 @@ void subtract(const Matrix &mat1, const Matrix &mat2){
     }
 
     sub_mat.display();
+    bool save_flag = false;
+    do{
+        std::string choice;
+        std::cout << "\nWould you like to save this matrix (Y/N)";
+        std::cin >> choice;
+        if(choice == "N"){save_flag = true;}
+        if(choice == "Y"){matrix_save(map, sub_mat); save_flag = true;}
+    }
+    while(!save_flag);
+}
+
+Matrix select(const std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, bool &found_flag){ 
+    std::string selection;
+    std::cout << "Enter the name of your matrix" << std::endl;
+    std::getline(std::cin >> std::ws, selection);
+    auto got = map->find(selection);
+    if(got == map->end()){found_flag = false; return Matrix();}
+    found_flag = true;  
+    return (*map)[selection];
+
+}
+
+void determinant(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
+    bool found_flag = false;
+    Matrix mat = select(map, found_flag);
+
+    Matrix l(mat.get_row(), mat.get_col());
+    Matrix u(mat.get_row(), mat.get_col());
+    
+      
 }
