@@ -52,4 +52,8 @@ void matrix_save(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, 
 
 Matrix select(const std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, bool &found_flag);
 
+void will();
+void angus();
+void rahul();
+
 #endif
