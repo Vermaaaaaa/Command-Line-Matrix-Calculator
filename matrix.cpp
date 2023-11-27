@@ -67,7 +67,8 @@ void matrix_save(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, 
     flag = map_check(mat_name, map);
   }
   while(flag);
-
+  //Asks the same of the user for a unique matrix name
+    //Adds matrix to our map
   (*map)[mat_name] = mat;  
 
 }
@@ -82,9 +83,11 @@ void add(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
         mat2 = select(map, found_flag2);
     }
     while(!found_flag1 || !found_flag2);
+    //Will not allow function to carry on until 2 valid matrices are found
     
     if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){std::cerr << "Error Matrices are not same size" << std::endl; return;}
     Matrix add_mat(mat1.get_row(), mat1.get_col());
+    //Checks is matrices are the same size and initalises a new matrix object
 
     for(int i = 0; i < mat1.get_row(); i++){
         for(int j = 0; j < mat1.get_col(); j++){
@@ -92,6 +95,7 @@ void add(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
             add_mat.set_index(i,j,value);
         }
     }
+    //Adds each index together and set it in another matrix
 
     add_mat.display();
 
@@ -104,6 +108,7 @@ void add(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
         if(choice == "Y"){matrix_save(map, add_mat); save_flag = true;}
     }
     while(!save_flag);
+    //Asks the user if they want to save the matrix as a new matrix to use for further calculations
 
 
 }
@@ -111,7 +116,7 @@ void add(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
 
 
 void subtract(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
-     Matrix mat1, mat2;
+    Matrix mat1, mat2;
     bool found_flag1 = false;
     bool found_flag2 = false;
     do{
@@ -142,6 +147,7 @@ void subtract(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
     while(!save_flag);
 }
 
+//Takes a string from the user and returns an empty object if not found else return matrix 
 Matrix select(const std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, bool &found_flag){ 
     std::string selection;
     std::cout << "Enter the name of your matrix" << std::endl;
@@ -153,12 +159,28 @@ Matrix select(const std::shared_ptr<std::unordered_map<std::string, Matrix>> &ma
 
 }
 
+
+//Calculates determinant based on gaussian elimination
 void determinant(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
     bool found_flag = false;
-    Matrix mat = select(map, found_flag);
+    Matrix mat;
+
+    do{
+        Matrix mat = select(map, found_flag);
+    }
+    while(!found_flag);
 
     Matrix l(mat.get_row(), mat.get_col());
     Matrix u(mat.get_row(), mat.get_col());
+
+    
+
+
     
       
 }
+
+
+
+
+
