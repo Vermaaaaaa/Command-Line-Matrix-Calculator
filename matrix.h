@@ -24,7 +24,7 @@ class Matrix{
     double get_index(int row, int col) const;
     int get_row() const;
     int get_col() const;
-    void get_matrix();
+    
 
     void display() const;
 
