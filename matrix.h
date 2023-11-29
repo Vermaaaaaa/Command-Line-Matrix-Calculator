@@ -16,8 +16,6 @@ class Matrix{
 
     //Mutators
     int set_index(int row, int col, double value);
-    void set_matrix();
-    int set_row(int row_no, double value);
 
 
     //Accessors 
@@ -25,11 +23,15 @@ class Matrix{
     int get_row() const;
     int get_col() const;
     void get_matrix();
+    
 
     void display() const;
 
     bool is_square();
     int size() const;
+    void swapRows(int row1, int row2);
+
+
 
 
     private:
@@ -50,10 +52,8 @@ void matrix_save(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, 
 
 
 
+
 Matrix select(const std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, bool &found_flag);
 
-void will();
-void angus();
-void rahul();
 
 #endif

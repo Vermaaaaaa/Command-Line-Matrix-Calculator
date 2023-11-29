@@ -6,6 +6,7 @@
 #include <string>
 #include <memory>
 #include "back.h"
+#include <cmath>
 
 Matrix::Matrix(int rows, int cols): _rows(rows) ,_cols(cols) {
     if(rows > INT_MAX || cols > INT_MAX){std::cerr << "Error\n";}
@@ -47,15 +48,15 @@ int Matrix::size() const{
     return mat.size();
 }
 
-void Matrix::display() const{
-    std::cout << "\n";
-        for (int i = 0; i < _rows; ++i) {
-            for (int j = 0; j < _cols; ++j) {
-                std::cout << std::setw(8) << mat[i][j]; // Adjust the width as needed
+    void Matrix::display() const{
+        std::cout << "\n";
+            for (int i = 0; i < _rows; ++i) {
+                for (int j = 0; j < _cols; ++j) {
+                    std::cout << std::setw(8) << mat[i][j]; // Adjust the width as needed
+                }
+                std::cout << std::endl;
             }
-            std::cout << std::endl;
-        }
-}
+    }
 
 void matrix_save(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, const Matrix &mat){
     bool flag = false;
@@ -159,26 +160,74 @@ Matrix select(const std::shared_ptr<std::unordered_map<std::string, Matrix>> &ma
 
 }
 
+void Matrix::swapRows(int row1, int row2) {
+    if (row1 != row2 && row1 >= 0 && row2 >= 0 && row1 < _rows && row2 < _rows) {std::swap(mat[row1], mat[row2]); return;} 
+    err("Invalid row indices for swapping.");
+
+}
+
 
 //Calculates determinant based on gaussian elimination
-void determinant(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
+void determinant(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map) {
     bool found_flag = false;
+    bool square_flag = false;
     Matrix mat;
 
     do{
-        Matrix mat = select(map, found_flag);
-    }
-    while(!found_flag);
+        mat = select(map, found_flag);
+        square_flag = mat.is_square();
 
-    Matrix l(mat.get_row(), mat.get_col());
-    Matrix u(mat.get_row(), mat.get_col());
+    } 
+    while (!found_flag || !square_flag);
+
+    int n = mat.size();
+    int counter = 0;
+
+    for (int col = 0; col < n; col++) {
+        int pivotRow = col;
+
+        // Find the row with the maximum value in the current column
+        for (int row = col + 1; row < n; row++) {if (std::abs(mat.get_index(row, col)) > std::abs(mat.get_index(pivotRow, col))) {pivotRow = row;}}
+
+        // Check if the pivot element is close to zero
+        if (std::abs(mat.get_index(pivotRow, col)) < 1e-10) {std::cout << "Matrix is very close to being singular/ is singular" << std::endl;}
+
+        // Swap the rows if needed
+        if (pivotRow != col) {mat.swapRows(col, pivotRow);counter++;}
+
+        // Elimination
+        for (int current_row = col + 1; current_row < n; current_row++) {
+            if (std::abs(mat.get_index(current_row, col)) < 1e-10) {continue;}
+            double factor = mat.get_index(current_row, col) / mat.get_index(col, col);
+            for (int j = col; j < n; j++) {
+                double temp = mat.get_index(current_row, j);
+                temp -= factor * mat.get_index(col, j);
+                mat.set_index(current_row, j, temp);
+            }
+        }
+    }
+
+    mat.display();
+    double det = 1.0;
+    for (int i = 0; i < n; i++) {
+        det *= mat.get_index(i, i);
+    }
+
+    det = det * pow(-1,counter);
+
+    std::cout << "\nThe Determinant of this matrix is: " << det << std::endl;
+}
+
+
+
+
 
     
 
 
     
       
-}
+
 
 
 
