@@ -21,6 +21,8 @@ void display_map(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
 int main(int argc, char const *argv[]) {
   (void) argc;
   (void) argv;
+
+  //Allocates a map on the heap as we need the map to persist throughout the entire program
   std::shared_ptr<std::unordered_map<std::string, Matrix>> map = std::make_shared<std::unordered_map<std::string, Matrix>>();
 
 
@@ -29,11 +31,14 @@ int main(int argc, char const *argv[]) {
   return 0;
 }
 
+//Prints main menu frontend to the user and starts dealing with user inputs
 void main_menu(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map) {
   print_main_menu();
   int input = get_user_input();
   select_menu_item(input,map);
 }
+
+
 
 int get_user_input() {
   int input;
@@ -45,7 +50,8 @@ int get_user_input() {
   do {
     std::cout << "\nSelect item: ";
     std::cin >> input_string;
-    if(input_string == std::string("b") || input_string == std::string("B")){return 0; valid_input = true;}
+    //If input is a b or B due to back the function does not return an erro 
+    if(input_string == "b" || input_string == "B"){return 0; valid_input = true;}
     valid_input = is_integer(input_string);
     // if input is not an integer, print an error message
     if (!valid_input) {
@@ -63,6 +69,8 @@ int get_user_input() {
 
   return input;
 }
+
+//Switch inputs for each menu item and returns back to the main menu
 
 void select_menu_item(int input, std::shared_ptr<std::unordered_map<std::string, Matrix>> &map) {
   switch (input) {
@@ -99,6 +107,8 @@ void select_menu_item(int input, std::shared_ptr<std::unordered_map<std::string,
   }
 }
 
+//Main Menu design
+
 void print_main_menu() {
   std::cout << "\n----------- Main menu -----------\n";
   std::cout << "|\t" << std::setw(27) << "|\n";
@@ -114,6 +124,8 @@ void print_main_menu() {
 }
 
 
+//Uses b or B to return to the main menu
+
 void go_back_to_main(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map) {
   std::string input;
   do {
@@ -124,12 +136,14 @@ void go_back_to_main(std::shared_ptr<std::unordered_map<std::string, Matrix>> &m
 }
 
 
+
 void display_map(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
-  if(!map){err("NULL Map"); return;}
-  for (auto it = map->begin(); it != map->end(); it++){
+  if(!map){err("NULL Map"); return;} //Checks if map is empty
+  for (auto it = map->begin(); it != map->end(); it++){ // Using an iterator, iterates through the map extracting key value pairs to be displayed
     const std::string& key = it->first;
     const Matrix& mat = it->second;
 
+    //Displays Matrix name and Value
     std::cout << "Name: " << key << std::endl;
     std::cout << "Matrix:" << std::endl;
     mat.display();
