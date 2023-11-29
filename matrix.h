@@ -23,7 +23,6 @@ class Matrix{
     int get_row() const;
     int get_col() const;
     void get_matrix();
-    
 
     void display() const;
 
