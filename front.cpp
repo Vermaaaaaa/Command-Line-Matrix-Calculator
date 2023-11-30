@@ -9,6 +9,7 @@
 
 
 
+
 void main_menu(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
 int get_user_input();
 void select_menu_item(int input, std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
@@ -95,12 +96,12 @@ void select_menu_item(int input, std::shared_ptr<std::unordered_map<std::string,
       go_back_to_main(map);
       break;
     case 6:
-      //determinant();
+      determinant(map);
       go_back_to_main(map);
       break;
     case 7:
+    std::cout << "Program Ended Successfully" << std::endl;
       exit(1);
-      system("cls");
       break;
     default:
       break;

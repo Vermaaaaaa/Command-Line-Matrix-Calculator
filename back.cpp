@@ -35,6 +35,8 @@ bool parse_numbers(const std::string &input, std::unique_ptr<double[]>& numbers,
   bool double_f = false;
 
   //While the iss object encounters an string without whitespace and the counter is not greater than our temp array
+  //iss reads the stream until whitespace is encountered and will terminate the string to be extracted into token string 
+
   while (iss >> token && counter < rows*cols + BUFF) {
     if (is_double(token)) { //Check if the token from the user is a double and append it to the temp array at a counter
       temp_nums[counter] = std::stod(token);
