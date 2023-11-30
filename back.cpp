@@ -59,7 +59,7 @@ bool parse_numbers(const std::string &input, std::unique_ptr<double[]>& numbers,
 
 Matrix def_mat(int rows, int cols){
   Matrix mat(rows, cols); // Defines a matrix of size rows cols 
-  std::unique_ptr<double[]> numbers = std::make_unique<double[]>(rows*cols); //Allocates a double array on the heap of size rows*col which is the size of our matrix
+  std::unique_ptr<double[]> numbers = std::make_unique<double[]>(rows*cols+BUFF); //Allocates a double array on the heap of size rows*col which is the size of our matrix
   int last_index = 0; // Keeps track of the last index of the array 
   bool parse_flag = false; //Keeps track to see if parse_numbers is returning false
   do{

@@ -24,6 +24,14 @@ int Matrix::set_index(int row, int col, double value){
     return 1;
 }
 
+int Matrix::add_index(int row, int col, double value){
+    if(row < 0 || row > _rows || col < 0 || col > _cols){std::cout << "Error" << std::endl; return 0;}
+    mat[row][col] += value;
+    return 1;
+}
+
+
+
 double Matrix::get_index(int row, int col) const{
     return mat[row][col];
 }

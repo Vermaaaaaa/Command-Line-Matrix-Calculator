@@ -16,6 +16,7 @@ class Matrix{
 
     //Mutators
     int set_index(int row, int col, double value);
+    int add_index(int row, int col, double value);
 
 
     //Accessors 
@@ -45,7 +46,6 @@ class Matrix{
 void determinant(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
 void add(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
 void subtract(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
-void multiply();
 
 void matrix_save(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, const Matrix &mat);
 

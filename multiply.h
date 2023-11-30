@@ -1,6 +1,8 @@
 #ifndef MULTIPLY_H
 #define MULTIPLY_H
+#include <memory>
+#include "matrix.h"
 
-bool is_c(const Matrix &mat); //Test if matrices are commutative
+void multiply(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
 
 #endif
