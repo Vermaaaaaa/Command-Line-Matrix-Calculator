@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include <memory>
 #include <iomanip>
-
+#include "multiply.h"
 
 
 
@@ -92,7 +92,7 @@ void select_menu_item(int input, std::shared_ptr<std::unordered_map<std::string,
       go_back_to_main(map);
       break;
     case 5:
-      //Multiply matrix
+      multiply(map);
       go_back_to_main(map);
       break;
     case 6:

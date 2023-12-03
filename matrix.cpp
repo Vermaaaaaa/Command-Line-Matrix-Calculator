@@ -24,6 +24,14 @@ int Matrix::set_index(int row, int col, double value){
     return 1;
 }
 
+int Matrix::add_index(int row, int col, double value){
+    if(row < 0 || row > _rows || col < 0 || col > _cols){std::cout << "Error" << std::endl; return 0;}
+    mat[row][col] += value;
+    return 1;
+}
+
+
+
 double Matrix::get_index(int row, int col) const{
     return mat[row][col];
 }
@@ -75,78 +83,7 @@ void matrix_save(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, 
 }
 
 
-void add(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
-    Matrix mat1, mat2;
-    bool found_flag1 = false;
-    bool found_flag2 = false;
-    do{
-        mat1 = select(map, found_flag1);
-        mat2 = select(map, found_flag2);
-    }
-    while(!found_flag1 || !found_flag2);
-    //Will not allow function to carry on until 2 valid matrices are found
-    
-    if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){std::cerr << "Error Matrices are not same size" << std::endl; return;}
-    Matrix add_mat(mat1.get_row(), mat1.get_col());
-    //Checks is matrices are the same size and initalises a new matrix object
 
-    for(int i = 0; i < mat1.get_row(); i++){
-        for(int j = 0; j < mat1.get_col(); j++){
-            double value = mat1.get_index(i,j) + mat2.get_index(i,j);
-            add_mat.set_index(i,j,value);
-        }
-    }
-    //Adds each index together and set it in another matrix
-
-    add_mat.display();
-
-    bool save_flag = false;
-    do{
-        std::string choice;
-        std::cout << "\nWould you like to save this matrix (Y/N)";
-        std::cin >> choice;
-        if(choice == "N"){save_flag = true;}
-        if(choice == "Y"){matrix_save(map, add_mat); save_flag = true;}
-    }
-    while(!save_flag);
-    //Asks the user if they want to save the matrix as a new matrix to use for further calculations
-
-
-}
- 
-
-
-void subtract(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
-    Matrix mat1, mat2;
-    bool found_flag1 = false;
-    bool found_flag2 = false;
-    do{
-        mat1 = select(map, found_flag1);
-        mat2 = select(map, found_flag2);
-    }
-    while(!found_flag1 || !found_flag2);
-
-    if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){std::cerr << "Error Matrices are not the same size" << std::endl; return;}
-    Matrix sub_mat(mat1.get_row(), mat1.get_col());
-
-    for(int i = 0; i < mat1.get_row(); i++){
-        for(int j = 0; j < mat1.get_col(); j++){
-            double value = mat1.get_index(i,j) - mat2.get_index(i,j);
-            sub_mat.set_index(i,j,value);
-        }
-    }
-
-    sub_mat.display();
-    bool save_flag = false;
-    do{
-        std::string choice;
-        std::cout << "\nWould you like to save this matrix (Y/N)";
-        std::cin >> choice;
-        if(choice == "N"){save_flag = true;}
-        if(choice == "Y"){matrix_save(map, sub_mat); save_flag = true;}
-    }
-    while(!save_flag);
-}
 
 //Takes a string from the user and returns an empty object if not found else return matrix 
 Matrix select(const std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, bool &found_flag){ 
