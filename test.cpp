@@ -1,66 +1,72 @@
-void determinant(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
-    bool found_flag = false;
-    Matrix mat;
+#include <cassert>
+#include "matrix.h"
+#include <iostream>
 
-    do{
-        mat = select(map, found_flag);
-    }
-    while(!found_flag);
+Matrix add2(const Matrix &mat1, const Matrix &mat2){ 
+    if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){std::cerr << "Error Matrices are not same size" << std::endl; return;}
+    Matrix add_mat(mat1.get_row(), mat1.get_col());
+    //Checks is matrices are the same size and initalises a new matrix object
 
-    Matrix l(mat.get_row(), mat.get_col());
-    Matrix u(mat.get_row(), mat.get_col());
-
-    int n = mat.size();
-    int i = 0, j = 0, k = 0;
-        for (i = 0; i < n; i++)
-        {
-            for (j = 0; j < n; j++)
-            {
-                if (j < i)
-                    l.set_index(j,i,0);
-                else
-                {
-                    l.set_index(j,i,mat.get_index(j,i));
-                    for (k = 0; k < i; k++)
-                    {
-                        int val = l.get_index(j,i) - l.get_index(j,k) * u.get_index(k,i);
-                        l.set_index(j,i,val);
-                    }
-                }
-            }
-            for (j = 0; j < n; j++)
-            {
-                if (j < i)
-                    u.set_index(i,j,0);
-                else if (j == i)
-                    u.set_index(i,j,1);
-                else
-                {
-                    int value = mat.get_index(i,j) / l.get_index(i,i);
-                    u.set_index(i,j,value);
-                    for (k = 0; k < i; k++)
-                    {
-                        int value2 = u.get_index(i,j) - (l.get_index(i,k) * u.get_index(k,j) / l.get_index(i,i));
-                        u.set_index(i,j,value2);
-                    }
-                }
-            }
+    for(int i = 0; i < mat1.get_row(); i++){
+        for(int j = 0; j < mat1.get_col(); j++){
+            double value = mat1.get_index(i,j) + mat2.get_index(i,j);
+            add_mat.set_index(i,j,value);
         }
-    
-    double det = 1;
-    
-    for(int q = 0; q < n; q++){
-        det *= u.get_index(q,q) * l.get_index(q,q);
     }
+    //Adds each index together and set it in another matrix
 
-    std::cout << "The determinant is: " << det << std::endl;
-        
+    add_mat.display();
+
+    return add_mat;
+
+
+    
+    
 }
 
-        for (int current_row = 0; current_row < n - 1; current_row++) {
-            if(!mat.get_index(current_row, col) || !mat.get_index(current_row + 1, col)){continue;}
-            double factor = mat.get_index(current_row, col) / mat.get_index(current_row + 1 , col);
-            double mat_index = mat.get_index(current_row + 1, col);
-            mat_index -= mat.get_index(current_row,col) * factor;
-            mat.set_index(current_row + 1,col,mat_index);
-        }  
+
+
+
+int main(){
+    Matrix mat1(2,2), mat2(2,2), mat3(2,2);
+
+
+
+    
+
+    mat1.set_index(0,0,2);
+    mat1.set_index(0,1,4);
+    mat1.set_index(1,0,6);
+    mat1.set_index(1,1,8);
+
+    
+    mat2.set_index(0,0,3);
+    mat2.set_index(0,1,4);
+    mat2.set_index(1,0,6);
+    mat2.set_index(1,1,5);
+
+    mat3 = add2(mat1,mat2);
+
+    assert(mat3.get_index(0, 0) == 5);
+    assert(mat3.get_index(0, 1) == 8);
+    assert(mat3.get_index(1, 0) == 12);
+    assert(mat3.get_index(1, 1) == 13);
+
+    // If any of these assertions fail, the program will terminate with an error.
+
+    // Additional checks, you might want to verify the size of the matrices.
+    assert(mat3.get_row() == 2);
+    assert(mat3.get_col() == 2);
+
+    return 0;
+
+
+
+   
+
+    
+
+    
+
+
+}
