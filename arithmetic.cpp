@@ -1,20 +1,21 @@
-#include <vector> 
+
 #include "matrix.h"
 #include <iostream>
-#include <limits.h>
-#include <iomanip>
-#include <string>
-#include <memory>
-#include "back.h"
-#include <cmath>
+#include <cassert>
 
 
 
-void add(const Matrix &mat1, const Matrix &mat2){
-    Matrix mat1, mat2;
+
+
+
+Matrix add2(const Matrix &mat1, const Matrix &mat2){
+    Matrix mat;
 
     
-    if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){std::cerr << "Error Matrices are not same size" << std::endl; return;}
+    if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){
+        std::cerr << "Error Matrices are not same size" << std::endl; 
+        return mat;
+        }
     Matrix add_mat(mat1.get_row(), mat1.get_col());
     //Checks is matrices are the same size and initalises a new matrix object
 
@@ -27,14 +28,15 @@ void add(const Matrix &mat1, const Matrix &mat2){
     //Adds each index together and set it in another matrix
 
     add_mat.display();
+    return add_mat;
 
 
 }
  
 
 
-void subtract(const Matrix &mat1, const Matrix &mat2){
-    if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){std::cerr << "Error Matrices are not the same size" << std::endl; return;}
+Matrix subtract2(const Matrix &mat1, const Matrix &mat2){
+    if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){std::cerr << "Error Matrices are not the same size" << std::endl; return Matrix();}
     Matrix sub_mat(mat1.get_row(), mat1.get_col());
 
     for(int i = 0; i < mat1.get_row(); i++){
@@ -45,4 +47,7 @@ void subtract(const Matrix &mat1, const Matrix &mat2){
     }
 
     sub_mat.display();
+    return sub_mat;
 }
+
+

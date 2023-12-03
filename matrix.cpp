@@ -61,21 +61,21 @@ int Matrix::size() const{
             }
     }
 
-void matrix_save(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, const Matrix &mat){
-    bool flag = false;
-    std::string mat_name;
-    do{
-    std::cout << "\nEnter a Matrix name (This will include all characters entered including white spaces)\n";
-    std::cin.ignore();
-    std::getline(std::cin, mat_name);
-    flag = map_check(mat_name, map);
-  }
-  while(flag);
+//void matrix_save(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, const Matrix &mat){
+    //bool flag = false;
+    //std::string mat_name;
+    //do{
+    //std::cout << "\nEnter a Matrix name (This will include all characters entered including white spaces)\n";
+    //std::cin.ignore();
+    //std::getline(std::cin, mat_name);
+    //flag = map_check(mat_name, map);
+  //}
+  //while(flag);
   //Asks the same of the user for a unique matrix name
     //Adds matrix to our map
-  (*map)[mat_name] = mat;  
+  //(*map)[mat_name] = mat;  
 
-}
+//}
 
 
 void add(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
@@ -165,7 +165,7 @@ Matrix select(const std::shared_ptr<std::unordered_map<std::string, Matrix>> &ma
 
 void Matrix::swapRows(int row1, int row2) {
     if (row1 != row2 && row1 >= 0 && row2 >= 0 && row1 < _rows && row2 < _rows) {std::swap(mat[row1], mat[row2]); return;} 
-    err("Invalid row indices for swapping.");
+    std::cerr <<("Invalid row indices for swapping.") << std::endl;
 
 }
 

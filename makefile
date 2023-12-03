@@ -1,28 +1,27 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -Werror
 
-all: whole
+all: test
 
-whole: front.o matrix.o back.o multiply.o
+whole: arithmetic.o arithmetic_test.o matrix.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
-
-front.o: front.cpp back.h multiply.h
-	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 matrix.o: matrix.cpp matrix.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-back.o: back.cpp matrix.h back.h
+arithmetic.o: arithmetic.cpp arithmetic.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-multiply.o: multiply.cpp matrix.h
+arithmetic_test.o: arithmetic_test.cpp arithmetic.h matrix.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+test: whole
+	./whole
 
 clean:
 	rm -f *.o whole
 
 # Header dependencies
-front.o: back.h multiply.h
 matrix.o: matrix.h
-back.o: matrix.h back.h
-multiply.o: matrix.h 
+arithmetic.o: arithmetic.h
+arithmetic_test.o: arithmetic.h matrix.h
