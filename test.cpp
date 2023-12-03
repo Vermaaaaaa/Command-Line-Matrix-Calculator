@@ -3,7 +3,7 @@
 #include <iostream>
 
 Matrix add2(const Matrix &mat1, const Matrix &mat2){ 
-    if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){std::cerr << "Error Matrices are not same size" << std::endl; return;}
+    if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){std::cerr << "Error Matrices are not same size" << std::endl; return Matrix();}
     Matrix add_mat(mat1.get_row(), mat1.get_col());
     //Checks is matrices are the same size and initalises a new matrix object
 

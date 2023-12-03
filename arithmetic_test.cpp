@@ -1,6 +1,7 @@
 
 #include <cassert>
 #include "matrix.h"
+#include <iostream> 
 #include "arithmetic.h"
 
 
@@ -33,6 +34,7 @@ int main(){
     assert(mat3.get_index(0, 1) == 8);
     assert(mat3.get_index(1, 0) == 12);
     assert(mat3.get_index(1, 1) == 13);
+    
 
     // If any of these assertions fail, the program will terminate with an error.
 
@@ -52,7 +54,11 @@ int main(){
     assert(mat4.get_row() == 2);
     assert(mat4.get_col() == 2);
 
+    std::cout << "All tests passed" << std::endl;
+
+
     return 0;
+
 
 
 
