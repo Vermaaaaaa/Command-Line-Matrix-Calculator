@@ -16,14 +16,15 @@ class Matrix{
 
     //Mutators
     int set_index(int row, int col, double value);
-    int add_index(int row, int col, double value);
+    int set_row(int row, double row_vals[]);
+    int set_col(int col, double col_vals[]);
 
 
     //Accessors 
     double get_index(int row, int col) const;
     int get_row() const;
     int get_col() const;
-    void get_matrix();
+  
 
     void display() const;
 
