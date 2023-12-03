@@ -15,22 +15,22 @@ class Matrix{
     Matrix(int rows, int cols);
 
     //Mutators
-    int set_index(int row, int col, double value);
-    int set_row(int row, double row_vals[]);
-    int set_col(int col, double col_vals[]);
+    int set_index(int row, int col, double value); //takes the rows and columns of the index to be modified and the value to change it to and changes that index to inputted value
+    int set_row(int row, double row_vals[]); //change the values stored in the rows array
+    int set_col(int col, double col_vals[]); //change the values stored in a column by acessing a specific index of each rows array
 
 
     //Accessors 
-    double get_index(int row, int col) const;
-    int get_row() const;
-    int get_col() const;
+    double get_index(int row, int col) const; //takes the inputted location in rows and cols and returns the index's value
+    int get_row() const; //returns number of rows
+    int get_col() const;  //returns number of columns
   
 
-    void display() const;
+    void display() const; //prints matrix to console
 
-    bool is_square();
-    int size() const;
-    void swapRows(int row1, int row2);
+    bool is_square(); //if matrix is square return true
+    int size() const; //number of indexs
+    void swap_rows(int row1, int row2); //swap rows used gaussian elimination
 
 
 
@@ -39,7 +39,7 @@ class Matrix{
     std::vector<std::vector<double>> mat; // 2D vector to store matrix elements
     int _rows;
     int _cols;
-    double _det;
+
           
 };
 
