@@ -163,7 +163,7 @@ Matrix select(const std::shared_ptr<std::unordered_map<std::string, Matrix>> &ma
 
 }
 
-void Matrix::swapRows(int row1, int row2) {
+void Matrix::swap_rows(int row1, int row2) {
     if (row1 != row2 && row1 >= 0 && row2 >= 0 && row1 < _rows && row2 < _rows) {std::swap(mat[row1], mat[row2]); return;} 
     std::cerr <<("Invalid row indices for swapping.") << std::endl;
 
@@ -196,7 +196,7 @@ void determinant(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map) 
         if (std::abs(mat.get_index(pivotRow, col)) < 1e-10) {std::cout << "Matrix is very close to being singular/ is singular" << std::endl;}
 
         // Swap the rows if needed
-        if (pivotRow != col) {mat.swapRows(col, pivotRow);counter++;}
+        if (pivotRow != col) {mat.swap_rows(col, pivotRow);counter++;}
 
         // Elimination
         for (int current_row = col + 1; current_row < n; current_row++) {
