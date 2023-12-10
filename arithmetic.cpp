@@ -9,12 +9,11 @@
 
 
 Matrix add2(const Matrix &mat1, const Matrix &mat2){
-    Matrix mat;
+ 
 
-    
     if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){ //ensures matricies are of the same size 
         std::cerr << "Error Matrices are not same size" << std::endl; //output error to console if not equal
-        return mat;
+        return Matrix();
         }
     Matrix add_mat(mat1.get_row(), mat1.get_col());
     //Checks is matrices are the same size and initalises a new matrix object
@@ -29,15 +28,20 @@ Matrix add2(const Matrix &mat1, const Matrix &mat2){
 
     add_mat.display();
     return add_mat;
-
-
+    
 }
  
 
 
 Matrix subtract2(const Matrix &mat1, const Matrix &mat2){
-    if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){std::cerr << "Error Matrices are not the same size" << std::endl; return Matrix();} //ensures the maxtricies are of the same size
-    Matrix sub_mat(mat1.get_row(), mat1.get_col()); //Checks is matrices are the same size and initalises a new matrix object
+
+
+    if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){ //ensures the maxtricies are of the same size
+        std::cerr << "Error Matrices are not the same size" << std::endl; 
+        return Matrix();
+        } 
+    Matrix sub_mat(mat1.get_row(), mat1.get_col()); 
+    //Checks is matrices are the same size and initalises a new matrix object
 
     for(int i = 0; i < mat1.get_row(); i++){
         for(int j = 0; j < mat1.get_col(); j++){
@@ -51,3 +55,12 @@ Matrix subtract2(const Matrix &mat1, const Matrix &mat2){
 }
 
 
+/*if (mat1.get_row() != mat2.get_row()) {
+    std::cerr << "Error: Matrices have different number of rows" << std::endl;
+    return mat;
+}
+
+if (mat1.get_col() != mat2.get_col()) {
+    std::cerr << "Error: Matrices have different number of columns" << std::endl;
+    return mat;
+}*/
