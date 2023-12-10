@@ -5,7 +5,7 @@
 #include "matrix.h"
 #include <memory>
 
-#define BUFF 200
+constexpr int BUFF = 200;
 
 /*
 Matches an incominng string where: 
@@ -93,7 +93,7 @@ void tokenize(std::string &msg){
 
 
 //Check if the key currently exists in the map otherwise return false
-bool map_check(const std::string &msg, std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
+bool map_check(const std::string &msg,const std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
   auto it = map->find(msg);
   return it != map->end(); // If key exists return true
 }
