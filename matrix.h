@@ -15,13 +15,9 @@ class Matrix{
     Matrix(const int rows,const int cols);
 
     //Mutators
-<<<<<<< Updated upstream
     int set_index(int row, int col, double value); //takes the rows and columns of the index to be modified and the value to change it to and changes that index to inputted value
     int set_row(int row, double row_vals[]); //change the values stored in the rows array
     int set_col(int col, double col_vals[]); //change the values stored in a column by acessing a specific index of each rows array
-=======
-    int set_index(const int row, const int col, const double value);
->>>>>>> Stashed changes
 
 
     //Accessors 
@@ -32,15 +28,9 @@ class Matrix{
 
     void display() const; //prints matrix to console
 
-<<<<<<< Updated upstream
     bool is_square(); //if matrix is square return true
     int size() const; //number of indexs
     void swap_rows(int row1, int row2); //swap rows used gaussian elimination
-=======
-    bool is_square();
-    int size() const;
-    void swap_rows(const int row1, const int row2);
->>>>>>> Stashed changes
 
 
 

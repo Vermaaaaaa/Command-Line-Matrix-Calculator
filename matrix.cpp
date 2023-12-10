@@ -161,11 +161,7 @@ Matrix select(const std::shared_ptr<std::unordered_map<std::string, Matrix>> &ma
 
 }
 
-<<<<<<< Updated upstream
 void Matrix::swap_rows(int row1, int row2) {
-=======
-void Matrix::swap_rows(const int row1, const int row2) {
->>>>>>> Stashed changes
     if (row1 != row2 && row1 >= 0 && row2 >= 0 && row1 < _rows && row2 < _rows) {std::swap(mat[row1], mat[row2]); return;} 
     std::cerr <<("Invalid row indices for swapping.") << std::endl;
 
