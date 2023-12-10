@@ -9,8 +9,7 @@
 
 
 Matrix add2(const Matrix &mat1, const Matrix &mat2){
- 
-
+    
     if(mat1.get_row() != mat2.get_row() || mat1.get_col() != mat2.get_col()){ //ensures matricies are of the same size 
         std::cerr << "Error Matrices are not same size" << std::endl; //output error to console if not equal
         return Matrix();

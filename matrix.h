@@ -12,7 +12,7 @@ class Matrix{
     public:
     //Constructors
     Matrix();
-    Matrix(int rows, int cols);
+    Matrix(const int rows,const int cols);
 
     //Mutators
     int set_index(int row, int col, double value); //takes the rows and columns of the index to be modified and the value to change it to and changes that index to inputted value
@@ -44,7 +44,7 @@ class Matrix{
 };
 
 
-void determinant(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
+void determinant(const std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
 void add(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
 void subtract(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
 
