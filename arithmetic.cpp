@@ -15,7 +15,7 @@ Matrix add2(const Matrix &mat1, const Matrix &mat2){
         return Matrix();
         }
     Matrix add_mat(mat1.get_row(), mat1.get_col());
-    //Checks is matrices are the same size and initalises a new matrix object
+    //Checks is matrices are the same size and initalises a new matrix object of the same size
 
     for(int i = 0; i < mat1.get_row(); i++){
         for(int j = 0; j < mat1.get_col(); j++){
@@ -23,10 +23,10 @@ Matrix add2(const Matrix &mat1, const Matrix &mat2){
             add_mat.set_index(i,j,value);
         }
     }
-    //Adds each index together and set it in another matrix
+    //iterates Adds each input index value together and stores it in the add_mat output matrix 
 
-    add_mat.display();
-    return add_mat;
+    add_mat.display(); //displays output
+    return add_mat; 
     
 }
  
@@ -40,12 +40,12 @@ Matrix subtract2(const Matrix &mat1, const Matrix &mat2){
         return Matrix();
         } 
     Matrix sub_mat(mat1.get_row(), mat1.get_col()); 
-    //Checks is matrices are the same size and initalises a new matrix object
+    //Checks is matrices are the same size and initalises a new matrix object of the same size
 
     for(int i = 0; i < mat1.get_row(); i++){
         for(int j = 0; j < mat1.get_col(); j++){
             double value = mat1.get_index(i,j) - mat2.get_index(i,j); //subtracts each index for the matrices one at a time
-            sub_mat.set_index(i,j,value); //saves the index subtraction into the relevent loacation in the output matrix 
+            sub_mat.set_index(i,j,value); //saves the index value subtraction into the relevent loacation in the output matrix 
         }
     }
 
@@ -54,7 +54,10 @@ Matrix subtract2(const Matrix &mat1, const Matrix &mat2){
 }
 
 
-/*if (mat1.get_row() != mat2.get_row()) {
+/*
+Original attempts at matrix comparison:
+
+if (mat1.get_row() != mat2.get_row()) {
     std::cerr << "Error: Matrices have different number of rows" << std::endl;
     return mat;
 }
