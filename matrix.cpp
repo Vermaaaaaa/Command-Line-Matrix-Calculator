@@ -167,15 +167,13 @@ void Matrix::swap_rows(int row1, int row2) {
 //Calculates determinant based on gaussian elimination
 void determinant(const std::shared_ptr<std::unordered_map<std::string, Matrix>> &map) {
     bool found_flag = false;
-    bool square_flag = false;
     Matrix mat;
 
     do{
         mat = select(map, found_flag);
-        square_flag = mat.is_square();
-
     } 
-    while (!found_flag || !square_flag);
+    while (!found_flag);
+    
 
     if(!mat.is_square()){err("Matrix is not square"); return;}
 
