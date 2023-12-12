@@ -47,6 +47,7 @@ class Matrix{
 void determinant(const std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
 void add(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
 void subtract(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
+void multiply(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
 
 void matrix_save(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, const Matrix &mat);
 
