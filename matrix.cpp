@@ -177,6 +177,8 @@ void determinant(const std::shared_ptr<std::unordered_map<std::string, Matrix>> 
     } 
     while (!found_flag || !square_flag);
 
+    if(!mat.is_square()){err("Matrix is not square"); return;}
+
     int n = mat.size();
     int counter = 0;
 
