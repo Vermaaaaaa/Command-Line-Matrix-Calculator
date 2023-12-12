@@ -3,16 +3,16 @@ CXXFLAGS = -std=c++17 -Wall -Wextra -Werror
 
 all: test
 
-whole: arithmetic.o arithmetic_test.o matrix.o
+whole: matrix.o back.o front.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-matrix.o: matrix.cpp matrix.h
+matrix.o: matrix.cpp matrix.h back.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-arithmetic.o: arithmetic.cpp arithmetic.h
+back.o: back.cpp back.h matrix.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-arithmetic_test.o: arithmetic_test.cpp arithmetic.h matrix.h
+front.o: front.cpp back.h matrix.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 test: whole
@@ -21,6 +21,15 @@ test: whole
 clean:
 	rm -f *.o whole
 
-matrix.o: matrix.h
-arithmetic.o: arithmetic.h
-arithmetic_test.o: arithmetic.h matrix.h
+# Header dependencies
+matrix.o: matrix.h back.h
+back.o: back.h matrix.h
+front.o: back.h matrix.h
+
+
+
+
+
+
+
+
