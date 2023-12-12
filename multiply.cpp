@@ -56,12 +56,11 @@ void multiply(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){ //
 }
 
 //Seperate multiply function to accomodate for the test function
-bool multiply2(mat1,mat2){ //Shared map for the matrices that have been inputted
-    Matrix mat1, mat2;
+bool multiply2(const Matrix &mat1,const Matrix &mat2){ //Shared map for the matrices that have been inputted
 
     if (mat1.get_col() != mat2.get_row()){ // Conformable check
         std::cout << "Matrices are not conformable and cannot be multiplied" << std::endl;
-        return;
+        return false;
     }
 
     Matrix mult_mat(mat1.get_row(), mat2.get_col()); // The size of answer will be the amount of rows from mat1 and columns from mat2
@@ -74,6 +73,6 @@ bool multiply2(mat1,mat2){ //Shared map for the matrices that have been inputted
             mult_mat.set_index(i, j, mult_ans); // Set new index values to answer
         }        
     }
-    mult_mat.display(); // Call display function to show answer
+    return true;
     
 }

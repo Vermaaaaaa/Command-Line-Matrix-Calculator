@@ -5,5 +5,6 @@
 
 Matrix add2(const Matrix &mat1, const Matrix &mat2);
 Matrix subtract2(const Matrix &mat1, const Matrix &mat2);
+Matrix multiply3(const Matrix &mat1,const Matrix &mat2);
 
 #endif

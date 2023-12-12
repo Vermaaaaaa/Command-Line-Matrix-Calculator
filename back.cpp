@@ -28,7 +28,7 @@ bool is_integer(const std::string &num) {
 
 // Takes a input from the user and appends this input to an array
 bool parse_numbers(const std::string &input, std::unique_ptr<double[]>& numbers, int rows, int cols, int &last_index, int &i) {
-  std::unique_ptr<double[]> temp_nums = std::make_unique<double[]>(rows*cols + BUFF); //Initalises a temp_array to store our read in values
+  std::unique_ptr<double[]> temp_nums = std::make_unique<double[]>(cols + BUFF); //Initalises a temp_array to store our read in values
   std::istringstream iss(input); //Creates istringstream object iss with a constructor being our string
   std::string token; // Initalise variable to hold our tokens
   int counter = 0;
@@ -37,7 +37,7 @@ bool parse_numbers(const std::string &input, std::unique_ptr<double[]>& numbers,
   //While the iss object encounters an string without whitespace and the counter is not greater than our temp array
   //iss reads the stream until whitespace is encountered and will terminate the string to be extracted into token string 
 
-  while (iss >> token && counter < rows*cols + BUFF) {
+  while (iss >> token && counter < cols + BUFF) {
     if (is_double(token)) { //Check if the token from the user is a double and append it to the temp array at a counter
       temp_nums[counter] = std::stod(token);
       counter++;

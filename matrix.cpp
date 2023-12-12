@@ -66,13 +66,12 @@ void matrix_save(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, 
     std::cout << "\nEnter a Matrix name (This will include all characters entered including white spaces)\n";
     std::cin.ignore();
     std::getline(std::cin, mat_name);
-    flag = map_check(mat_name, map);
+    //flag = map_check(mat_name, map);
   }
   while(flag);
   //Asks the same of the user for a unique matrix name
     //Adds matrix to our map
   (*map)[mat_name] = mat;  
-
 }
 
 
@@ -110,9 +109,6 @@ void add(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
         if(choice == "Y"){matrix_save(map, add_mat); save_flag = true;}
     }
     while(!save_flag);
-    //Asks the user if they want to save the matrix as a new matrix to use for further calculations
-
-
 }
  
 
@@ -208,7 +204,7 @@ void determinant(const std::shared_ptr<std::unordered_map<std::string, Matrix>> 
         }
     }
 
-    mat.display();
+    
     double det = 1.0;
     for (int i = 0; i < n; i++) {
         det *= mat.get_index(i, i);

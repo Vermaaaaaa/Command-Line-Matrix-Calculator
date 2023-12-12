@@ -22,7 +22,7 @@ Matrix def_mat(int rows, int cols);
 
 float to_float(const std::string& str);
 
-bool map_check(const std::string &msg, std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
+bool map_check(const std::string &msg, const std::shared_ptr<std::unordered_map<std::string, Matrix>> &map);
 void tokenize(std::string &msg);
 
 #endif

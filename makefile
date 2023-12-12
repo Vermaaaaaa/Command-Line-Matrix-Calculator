@@ -21,7 +21,6 @@ test: whole
 clean:
 	rm -f *.o whole
 
-# Header dependencies
 matrix.o: matrix.h
 arithmetic.o: arithmetic.h
 arithmetic_test.o: arithmetic.h matrix.h
