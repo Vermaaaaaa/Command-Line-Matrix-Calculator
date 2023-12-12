@@ -8,7 +8,7 @@
 #include "back.h"
 #include <cmath>
 
-Matrix::Matrix(int rows, int cols): _rows(rows) ,_cols(cols) {
+Matrix::Matrix(const int rows, const int cols): _rows(rows) ,_cols(cols) {
     if(rows > INT_MAX || cols > INT_MAX){std::cerr << "Error\n";}
     mat.resize(rows, std::vector<double>(cols, 0.0));
 
@@ -18,7 +18,7 @@ Matrix::Matrix(){
     mat.resize(0, std::vector<double>(0, 0.0));
 }
 
-int Matrix::set_index(int row, int col, double value){
+int Matrix::set_index(const int row, const int col, const double value){
     if(row < 0 || row > _rows || col < 0 || col > _cols){std::cout << "Error" << std::endl; return 0;}
     mat[row][col] = value;
     return 1;
@@ -26,8 +26,7 @@ int Matrix::set_index(int row, int col, double value){
 
 
 
-
-double Matrix::get_index(int row, int col) const{
+double Matrix::get_index(const int row, const int col) const{
     return mat[row][col];
 }
 
@@ -51,31 +50,30 @@ int Matrix::size() const{
     return mat.size();
 }
 
-    void Matrix::display() const{
-        std::cout << "\n";
-            for (int i = 0; i < _rows; ++i) {
-                for (int j = 0; j < _cols; ++j) {
-                    std::cout << std::setw(8) << mat[i][j]; // Adjust the width as needed
-                }
-                std::cout << std::endl;
+void Matrix::display() const{
+    std::cout << "\n";
+        for (int i = 0; i < _rows; ++i) {
+            for (int j = 0; j < _cols; ++j) {
+                std::cout << std::setw(8) << mat[i][j]; // Adjust the width as needed
             }
-    }
-
-//void matrix_save(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, const Matrix &mat){
-    //bool flag = false;
-    //std::string mat_name;
-    //do{
-    //std::cout << "\nEnter a Matrix name (This will include all characters entered including white spaces)\n";
-    //std::cin.ignore();
-    //std::getline(std::cin, mat_name);
-    //flag = map_check(mat_name, map);
-  //}
-  //while(flag);
+            std::cout << std::endl;
+        }
+}
+void matrix_save(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map, const Matrix &mat){
+    bool flag = false;
+    std::string mat_name;
+    do{
+    std::cout << "\nEnter a Matrix name (This will include all characters entered including white spaces)\n";
+    std::cin.ignore();
+    std::getline(std::cin, mat_name);
+    flag = map_check(mat_name, map);
+  }
+  while(flag);
   //Asks the same of the user for a unique matrix name
     //Adds matrix to our map
-  //(*map)[mat_name] = mat;  
+  (*map)[mat_name] = mat;  
 
-//}
+}
 
 
 void add(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map){
@@ -171,7 +169,7 @@ void Matrix::swap_rows(int row1, int row2) {
 
 
 //Calculates determinant based on gaussian elimination
-void determinant(std::shared_ptr<std::unordered_map<std::string, Matrix>> &map) {
+void determinant(const std::shared_ptr<std::unordered_map<std::string, Matrix>> &map) {
     bool found_flag = false;
     bool square_flag = false;
     Matrix mat;
