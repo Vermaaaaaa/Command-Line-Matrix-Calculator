@@ -28,9 +28,9 @@ To use the matrix calculator, compile the source files and run the executable. U
 
 ## Collaborators
 
-- Will: Implemented matrix multiplication functionality.
-- Angus: Contributed addition and subtraction functionalities.
-- [Your Name]: Developed the main menu interface, matrix definition, and other functionalities.
+- William Barrett: Implemented matrix multiplication functionality.
+- Angus Doleman: Contributed addition and subtraction functionalities.
+- Rahul Verma[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/rahul-verma-a288392b6) : Developed the main menu interface, matrix definition, and other functionalities.
 
 ## Dependencies
 
